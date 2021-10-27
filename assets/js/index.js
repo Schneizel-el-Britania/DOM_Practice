@@ -50,4 +50,18 @@ image.addEventListener('wheel', (e) => {
 })
 
 
+/*------------------------------------------- */
 
+const uniqueImg = document.getElementById('uniqueImg');
+const uniqueBtn = document.getElementById('uniqueBtn');
+
+
+const srcAttr = document.createAttribute('src');
+srcAttr.value = imagesDB[0];
+uniqueImg.setAttributeNode(srcAttr);
+
+
+uniqueBtn.addEventListener('click', (() => {
+  let state = 0;
+  return () => srcAttr.value = imagesDB[state++ % 2];
+})());
