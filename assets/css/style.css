@@ -1,20 +1,80 @@
-.slider-container{
-  width: 50vw;
-  height: 50vw;
+:root {
+  font-size: 13px;
+
+  background-color: rgb(68, 55, 55);
+
+  --img-border-color: rgb(60, 60, 60);
+  --btn-bg-color: rgb(230, 230, 230);
+  --btn-color: rgb(105, 105, 105);
+}
+
+.slider-container {
+  width: 40vw;
+  height: 40vw;
   margin: auto;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  position: relative;
 }
-.slide{
+.slide {
   width: 100%;
   height: 100%;
 }
-.slide>img{
+.slide > img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+  border: 1px solid var(--img-border-color);
+  border-radius: 2rem;
+  box-shadow: 0px 0px 50px 0px rgba(255, 255, 255, 0.5);
 }
-.btn{
+.btn-container {
+  background-color: var(--btn-bg-color);
+  border-radius: 1rem;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.2);
+
+  position: absolute;
+  top: 1rem;
+}
+.btn {
+  padding: 0.3vw 1vw;
   border: 0;
+  color: var(--btn-color);
   background-color: transparent;
+
+  font-size: 2.5rem;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.btn:hover {
+  transform: scale(1.2);
+}
+
+.nav-indicator-container {
+  display: flex;
+  justify-content: center;
+  width: fit-content;
+  position: absolute;
+  bottom: 1rem;
+}
+
+.nav-indicator {
+  --elem-size: 0.5rem;
+
+  width: var(--elem-size);
+  height: var(--elem-size);
+
+  border-radius: 50%;
+  border: 0.3px solid white;
+}
+
+.nav-indicator + .nav-indicator {
+  margin-left: 1rem;
+}
+
+.active-nav-indicator {
+  background-color: white;
 }

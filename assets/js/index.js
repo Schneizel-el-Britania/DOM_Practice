@@ -6,46 +6,47 @@ const imagesDB = [
   'https://bangkokpost.com/photos_content/large/prefix_1/1875/43875/43875-1448252967zcl8ij9iv3.jpg',
   'https://previews.123rf.com/images/muha/muha1205/muha120500089/13658592-tropical-beach-andaman-sea-thailand.jpg'
 ];
+
+function updateView() {
+  image.setAttribute('src', slider.currentSlide);
+}
+
+function createNavIndicators() {
+  for (let i = 0; i < slider.images.length; i++) {
+    const navElement = document.createElement('div');
+    navElement.className = 'nav-indicator';
+    document.getElementsByClassName('nav-indicator-container')[0].appendChild(navElement);
+  }
+}
+
+function updateNavIdicatorStatus(previousIndex = slider.prevIndex) {
+  const navIndicators = document.getElementsByClassName('nav-indicator');
+  navIndicators[slider.currentIndex].classList.add('active-nav-indicator');
+  navIndicators[previousIndex].classList.remove('active-nav-indicator');
+}
+
 const slider = new Slider(imagesDB);
 
 const image = document.querySelector('.slide>img');
-const [prevBtn, nextBtn] = document.querySelectorAll('.slider-container>button');
+const [prevBtn, nextBtn] = document.querySelectorAll('.slider-container button');
 
-function updateView(){
-  image.setAttribute('src', slider.currentSlide);
-}
 updateView();
+createNavIndicators();
+updateNavIdicatorStatus();
 
-const bthSliderHandler = (direction = 'next') => () =>{
+const bthSliderHandler = (direction = 'next') => () => {
+  const prevIndex = slider.currentIndex;
   slider.currentIndex = slider[direction === 'next' ? 'nextIndex' : 'prevIndex'];
   updateView();
+  updateNavIdicatorStatus(prevIndex);
 }
 
 nextBtn.addEventListener('click', bthSliderHandler('next'));
 prevBtn.addEventListener('click', bthSliderHandler('prev'));
 
-image.addEventListener('wheel', (e)=>{
-  // const handler = e.deltaY>0? bthSliderHandler('next'):bthSliderHandler('prev');
-  // handler();
-  e.deltaY>0 ? bthSliderHandler('next')():bthSliderHandler('prev')();
+image.addEventListener('wheel', (e) => {
+  e.deltaY > 0 ? bthSliderHandler('next')() : bthSliderHandler('prev')();
 })
-
-
-
-/*------------------------------------------- */
-
-// const uniqueImg = document.getElementById('unique');
-
-// const srcAttr = document.createAttribute('src');
-// srcAttr.value = imagesDB[0];
-
-// uniqueImg.setAttributeNode(srcAttr);
-
-/*
-
-По клику на кнопку показывать чередоваинем одну из двух картинок
-
-*/
 
 
 
