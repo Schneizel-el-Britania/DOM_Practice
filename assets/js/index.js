@@ -28,17 +28,18 @@ function updateNavIdicatorStatus(previousIndex = slider.prevIndex) {
 const slider = new Slider(imagesDB);
 
 const image = document.querySelector('.slide>img');
-const [prevBtn, nextBtn] = document.querySelectorAll('.slider-container button');
+const [prevBtn, nextBtn] = document.querySelectorAll('.slider-container>button');
 
 updateView();
 createNavIndicators();
 updateNavIdicatorStatus();
 
+
+const getSliderIndex = (direction, side) => slider[direction === side ? 'nextIndex' : 'prevIndex'];
 const bthSliderHandler = (direction = 'next') => () => {
-  const prevIndex = slider.currentIndex;
-  slider.currentIndex = slider[direction === 'next' ? 'nextIndex' : 'prevIndex'];
+  slider.currentIndex = getSliderIndex(direction, 'next');
   updateView();
-  updateNavIdicatorStatus(prevIndex);
+  updateNavIdicatorStatus(getSliderIndex(direction, 'prev'));
 }
 
 nextBtn.addEventListener('click', bthSliderHandler('next'));
