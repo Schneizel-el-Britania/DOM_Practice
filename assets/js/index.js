@@ -1,67 +1,60 @@
 'use strict';
-const imagesDB = [
-  'https://www.bookbell.in/wp-content/uploads/2018/08/sea-01.jpg',
-  'https://compass-ssl.xboxlive.com/assets/fd/df/fddfac17-875c-4910-ab1f-3f18dd9962b3.jpg?n=Parallax_Sections_Mobile_01.jpg',
-  'https://media-cdn.tripadvisor.com/media/photo-s/14/64/88/c2/makanda-by-the-sea.jpg',
-  'https://bangkokpost.com/photos_content/large/prefix_1/1875/43875/43875-1448252967zcl8ij9iv3.jpg',
-  'https://previews.123rf.com/images/muha/muha1205/muha120500089/13658592-tropical-beach-andaman-sea-thailand.jpg'
-];
 
-function updateView() {
-  image.setAttribute('src', slider.currentSlide);
+const cardsContainer = document.getElementById('cardsContainer');
+
+const HTMLElements = actors.map((actor)=>createActorCards(actor));
+
+function createActorCards(actor){
+  const card = document.createElement('li');
+  card.classList.add('cardWrapper');
+
+  const container = document.createElement('article');
+  container.classList.add('cardContainer');
+
+  const imgWrapper = document.createElement('div');
+  imgWrapper.classList.add('cardImageWrapper');
+
+  const initials = document.createElement('div');
+  initials.classList.add('initials');
+  initials.append(document.createTextNode(actor.name[0] || 'noname'));
+  initials.style.backgroundColor = stringToColour(actor.name || '');
+
+  const img = document.createElement('img');
+  img.classList.add('cardImage');
+  img.setAttribute('src', actor.photo);
+  img.setAttribute('alt', actor.name);
+  img.addEventListener('error', handleImageError);
+
+  imgWrapper.append(initials, img);
+
+  const name = document.createElement('h2');
+  name.classList.add('cardName');
+  name.append(document.createTextNode(actor.name || 'noname'));
+
+  const description = document.createElement('p');
+  description.classList.add('cardDescription');
+  description.append(document.createTextNode(actor.birthdate || 'unknow'));
+
+  container.append(imgWrapper, name, description);
+  card.append(container);
+  return card;
 }
+cardsContainer.append(...HTMLElements);
 
-function createNavIndicators() {
-  for (let i = 0; i < slider.images.length; i++) {
-    const navElement = document.createElement('div');
-    navElement.className = 'nav-indicator';
-    document.getElementsByClassName('nav-indicator-container')[0].appendChild(navElement);
+/*  handles */
+function handleImageError({target}){
+  target.remove();
+}
+/* utilits */
+function stringToColour(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = str.charCodeAt(i) + ((hash << 5) - hash);
   }
+  let colour = '#';
+  for (let i = 0; i < 3; i++) {
+    let value = (hash >> (i * 8)) & 0xFF;
+    colour += ('00' + value.toString(16)).substr(-2);
+  }
+  return colour;
 }
-
-function updateNavIdicatorStatus(previousIndex = slider.prevIndex) {
-  const navIndicators = document.getElementsByClassName('nav-indicator');
-  navIndicators[slider.currentIndex].classList.add('active-nav-indicator');
-  navIndicators[previousIndex].classList.remove('active-nav-indicator');
-}
-
-const slider = new Slider(imagesDB);
-
-const image = document.querySelector('.slide>img');
-const [prevBtn, nextBtn] = document.querySelectorAll('.slider-container>button');
-
-updateView();
-createNavIndicators();
-updateNavIdicatorStatus();
-
-
-const getSliderIndex = (direction, side) => slider[direction === side ? 'nextIndex' : 'prevIndex'];
-const bthSliderHandler = (direction = 'next') => () => {
-  slider.currentIndex = getSliderIndex(direction, 'next');
-  updateView();
-  updateNavIdicatorStatus(getSliderIndex(direction, 'prev'));
-}
-
-nextBtn.addEventListener('click', bthSliderHandler('next'));
-prevBtn.addEventListener('click', bthSliderHandler('prev'));
-
-image.addEventListener('wheel', (e) => {
-  e.deltaY > 0 ? bthSliderHandler('next')() : bthSliderHandler('prev')();
-})
-
-
-/*------------------------------------------- */
-
-const uniqueImg = document.getElementById('uniqueImg');
-const uniqueBtn = document.getElementById('uniqueBtn');
-
-
-const srcAttr = document.createAttribute('src');
-srcAttr.value = imagesDB[0];
-uniqueImg.setAttributeNode(srcAttr);
-
-
-uniqueBtn.addEventListener('click', (() => {
-  let state = 0;
-  return () => srcAttr.value = imagesDB[state++ % 2];
-})());
