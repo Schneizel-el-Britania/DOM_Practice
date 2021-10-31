@@ -2,9 +2,9 @@
 
 const cardsContainer = document.getElementById('cardsContainer');
 
-const HTMLElements = actors.map((actor)=>createActorCards(actor));
+const HTMLElements = actors.map((actor) => createActorCards(actor));
 
-function createActorCards(actor){
+function createActorCards(actor) {
   const card = document.createElement('li');
   card.classList.add('cardWrapper');
 
@@ -16,7 +16,7 @@ function createActorCards(actor){
 
   const initials = document.createElement('div');
   initials.classList.add('initials');
-  initials.append(document.createTextNode(actor.name[0] || 'noname'));
+  initials.append(document.createTextNode(actor.name.split(' ').map((item) => item[0]).join('') || 'noname'));
   initials.style.backgroundColor = stringToColour(actor.name || '');
 
   const img = document.createElement('img');
@@ -42,7 +42,7 @@ function createActorCards(actor){
 cardsContainer.append(...HTMLElements);
 
 /*  handles */
-function handleImageError({target}){
+function handleImageError({ target }) {
   target.remove();
 }
 /* utilits */
