@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>FM DOM</title>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
   <body>
-    
+    <section class="flex-direction">
+      <h1 class="main-header">flex-direction</h1>
+      <div class="direction-btns-container">
+        <button class="btn" data-flex-direction="row">row</button>
+        <button class="btn" data-flex-direction="row-reverse">row-reverse</button>
+        <button class="btn" data-flex-direction="column">column</button>
+        <button class="btn" data-flex-direction="column-reverse">column-reverse</button>
+      </div>
+      <div id="demonstration-area" class="demonstration-area">
+        <div class="demonstration-item">1</div>
+        <div class="demonstration-item">2</div>
+        <div class="demonstration-item">3</div>
+        <div class="demonstration-item">4</div>
+      </div>
+    </section>
 
     <script defer src="./assets/js/index.js"></script>
   </body>

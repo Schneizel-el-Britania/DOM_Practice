@@ -1,0 +1,65 @@
+:root {
+  --main-color: #85b3c1;
+  --selected-color: #4fc2f8;
+  --demonstartion-text-color: #246f8f;
+  font-size: 13px;
+
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.flex-direction {
+  padding-top: 2rem;
+  padding-left: 1rem;
+}
+.flex-direction > * {
+  padding-bottom: 2rem;
+}
+
+.direction-btns-container {
+  font-size: 0;
+}
+.btn + .btn {
+  margin-left: 0.5rem;
+}
+.btn {
+  padding: 1rem;
+  border: 2px solid var(--main-color);
+  background-color: transparent;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.btn:hover {
+  color: white;
+  background-color: var(--selected-color);
+  border-color: var(--selected-color);
+  cursor: pointer;
+}
+
+.demonstration-area {
+  width: 35rem;
+  height: 12rem;
+  display: flex;
+  align-items: stretch;
+  flex: 1 0 auto;
+  border: 2px solid var(--main-color);
+  padding: 0.4rem;
+}
+.demonstration-item {
+  min-width: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid white;
+  background-color: var(--selected-color);
+  color: var(--demonstartion-text-color);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
